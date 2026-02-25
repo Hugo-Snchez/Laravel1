@@ -1,72 +1,79 @@
-# CRM Empresa - Segunda Entrega
+# CRM Empresa - Segunda Entrega ✅ COMPLETADA
 
 ## Descripción del Proyecto
-Sistema CRM mejorado basado en la Primera Entrega. Incluye características avanzadas como DataTables, 
-paginación, gestión de imágenes/archivos, roles de usuario y permisos de acceso.
+Sistema CRM mejorado basado en la Primera Entrega, con características avanzadas de gestión empresarial.
+Incluye DataTables, paginación avanzada, gestión de imágenes y archivos, y sistema de roles con control de permisos.
 
 ## Tecnologías Utilizadas
 - **Framework**: Laravel 11
 - **Base de datos**: MySQL
 - **Frontend**: Blade Templates + AdminLTE 3
-- **Plugins**: DataTables 1.10
+- **Plugins**: DataTables 1.13
 - **Almacenamiento**: Laravel Storage (public disk)
 - **Lenguaje**: PHP 8.2+
 
-## Características Nuevas de la Segunda Entrega
+## ✅ Características Implementadas
 
-### 1. DataTables
-- Implementado en todos los módulos (Clientes, Productos, Proveedores, Ventas, Compras)
-- Búsqueda en tiempo real
-- Paginación integrada
-- Ordenamiento de columnas
-- Mejora significativa en la experiencia del usuario
+### 1. DataTables en Todos los Módulos
+- ✅ Buscador en tiempo real
+- ✅ Paginación integrada
+- ✅ Ordenamiento por columnas
+- ✅ Interfaz responsiva
+- Módulos con DataTables:
+  - Clientes
+  - Productos
+  - Proveedores
+  - Ventas
+  - Compras
 
-### 2. Gestión de Archivos
-- **Imágenes de Productos**:
+### 2. Gestión de Archivos y Imágenes
+- ✅ **Imágenes de Productos**:
   - Subida de fotos (JPG, PNG, WebP)
   - Almacenamiento en `storage/app/public/productos`
-  - Visualización en listados y detalles
+  - Visualización en miniatura en listados
+  - Máximo: 2MB
 
-- **Documentos PDF**:
-  - Subida de archivos PDF de productos
-  - Almacenamiento seguro en `storage/app/public/pdfs`
-  - Descarga de archivos desde la aplicación
+- ✅ **PDFs de Productos**:
+  - Subida de archivos PDF
+  - Almacenamiento en `storage/app/public/productos`
+  - Descarga desde la aplicación
+  - Máximo: 5MB
 
-- **Imágenes de Clientes**:
-  - Perfil de cliente con foto
-  - Gestión de imágenes de cliente
+- ✅ **Fotos de Clientes**:
+  - Perfil con foto
+  - Gestión independiente de imágenes
 
 ### 3. Sistema de Roles y Permisos
-
 #### Roles Disponibles
-- **Admin**: Acceso total
-  - Crear, editar, eliminar registros
-  - Botón Eliminar visible en todas las acciones
-  - Acceso a todas las funciones
+- **Admin**: `admin` - Acceso total
+- **Usuario**: `user` - Acceso limitado
 
-- **Usuario**: Acceso limitado
-  - Crear nuevos registros
-  - Editar registros existentes
-  - NO puede eliminar registros
-  - Botón Eliminar oculto en vistas
+#### Permisos por Rol
+| Acción | Admin | Usuario |
+|--------|-------|---------|
+| Ver listados | ✅ | ✅ |
+| Crear registros | ✅ | ✅ |
+| Editar registros | ✅ | ✅ |
+| Eliminar registros | ✅ | ❌ |
 
 ### 4. Control de Permisos en Vistas
 ```blade
-@if(Auth::user()->role === 'admin')
+@if (auth()->user()->isAdmin())
+    <!-- Botón Eliminar solo para Admin -->
     <button class="btn btn-danger">Eliminar</button>
 @endif
 ```
 
-### 5. Validación de Formularios
-- Validaciones en lado servidor
-- Mensajes de error personalizados
+### 5. Validaciones Mejoradas
 - Validación de tipos de archivo
-- Límites de tamaño de archivo
+- Límites de tamaño configurables
+- Mensajes de error personalizados
+- Validación en lado servidor
 
-### 6. Almacenamiento de Archivos
-- Enlaces simbólicos configurados
-- Acceso público a imágenes y archivos
-- Rutas seguras en `storage/`
+### 6. Middleware de Seguridad
+- Middleware `CheckAdminRole` para proteger rutas sensibles
+- Verificación automática en eliminaciones
+- Redirección con mensaje de error si no autorizado
 
 ## Requisitos Previos
 - PHP 8.2 o superior
@@ -75,11 +82,11 @@ paginación, gestión de imágenes/archivos, roles de usuario y permisos de acce
 - Node.js y npm
 - GD Library (para manipulación de imágenes)
 
-## Instalación
+## 📦 Instalación Rápida
 
-### Paso 1: Clonar el repositorio
+### Paso 1: Clonar repositorio
 ```bash
-git clone https://github.com/tu-usuario/laravel1.git
+git clone https://github.com/Hugo-Snchez/laravel1.git
 cd laravel1
 git checkout Segunda
 ```
@@ -91,13 +98,13 @@ npm install
 npm run build
 ```
 
-### Paso 3: Configurar archivo .env
+### Paso 3: Configurar .env
 ```bash
 cp .env.example .env
 php artisan key:generate
 ```
 
-Editar `.env`:
+Editar `.env` con tus credenciales:
 ```
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
@@ -109,151 +116,208 @@ DB_PASSWORD=
 FILESYSTEM_DISK=public
 ```
 
-### Paso 4: Migrar base de datos
+### Paso 4: Base de datos
 ```bash
 php artisan migrate
 ```
 
-### Paso 5: Crear enlace simbólico para storage
+### Paso 5: Storage Link
 ```bash
 php artisan storage:link
 ```
 
-**Importante**: Este paso es esencial para que las imágenes y archivos sean accesibles públicamente.
+### Paso 6: Crear usuarios con roles
+```bash
+php artisan db:seed --class=AdminUserSeeder
+```
 
-### Paso 6: Iniciar servidor local
+### Paso 7: Iniciar servidor
 ```bash
 php artisan serve
 ```
 
-La aplicación estará disponible en `http://localhost:8000`
+Acceder en: **http://localhost:8000**
 
-## Usuarios de Prueba
+## 👥 Usuarios de Prueba
 
-### Admin
+### Admin (Acceso total)
 - **Email**: admin@crm.com
-- **Contraseña**: password123
-- **Permisos**: Acceso total
+- **Contraseña**: password
+- **Permisos**: Crear, editar, eliminar
 
-### Usuario Estándar
+### Usuario Regular (Acceso limitado)
 - **Email**: usuario@crm.com
-- **Contraseña**: password123
-- **Permisos**: Crear y editar (sin eliminar)
+- **Contraseña**: password
+- **Permisos**: Crear y editar (SIN eliminar)
 
-## Estructura de Almacenamiento
+## 📁 Estructura de Almacenamiento
 
 ```
 storage/
 ├── app/
 │   └── public/
-│       ├── productos/          # Imágenes de productos
-│       ├── clientes/           # Imágenes de clientes
-│       └── pdfs/               # Documentos PDF
+│       ├── productos/imagenes/    # Fotos de productos
+│       ├── productos/pdfs/        # PDFs de productos
+│       └── clientes/              # Fotos de clientes
 └── logs/
     └── laravel.log
 ```
 
-## Funcionalidades Implementadas
+## 📊 Módulos y Funcionalidades
 
-### Módulo Clientes
+### 1. Módulo Clientes
 - [x] DataTables con búsqueda
-- [x] Paginación
+- [x] Paginación avanzada
 - [x] Subida de foto de perfil
 - [x] Control de permisos (Admin/Usuario)
+- [x] Eliminación solo para Admin
 
-### Módulo Productos
+### 2. Módulo Productos
 - [x] DataTables con búsqueda
-- [x] Paginación
+- [x] Paginación avanzada
 - [x] Subida de imagen del producto
 - [x] Subida de PDF del producto
+- [x] Preview de imágenes en tabla
 - [x] Control de permisos (Admin/Usuario)
 
-### Módulo Proveedores
+### 3. Módulo Proveedores
 - [x] DataTables con búsqueda
-- [x] Paginación
-- [x] Control de permisos (Admin/Usuario)
+- [x] Paginación avanzada
+- [x] Control de permisos
 
-### Módulo Ventas
+### 4. Módulo Ventas
 - [x] DataTables con búsqueda
-- [x] Paginación
+- [x] Paginación avanzada
 - [x] Detalles de venta
-- [x] Control de permisos (Admin/Usuario)
+- [x] Control de permisos
 
-### Módulo Compras
+### 5. Módulo Compras
 - [x] DataTables con búsqueda
-- [x] Paginación
+- [x] Paginación avanzada
 - [x] Detalles de compra
-- [x] Control de permisos (Admin/Usuario)
+- [x] Control de permisos
 
-## Diferencias con Primera Entrega
+## 🔐 Control de Acceso
+
+### Middleware Implementado
+- `auth`: Autenticación requerida
+- `check.admin`: Solo admin puede acceder (para eliminaciones)
+
+### Rutas Protegidas
+- `DELETE clientes/{cliente}` → Requiere `admin`
+- `DELETE productos/{producto}` → Requiere `admin`
+- `DELETE proveedores/{proveedor}` → Requiere `admin`
+- `DELETE ventas/{venta}` → Requiere `admin`
+- `DELETE compras/{compra}` → Requiere `admin`
+
+## 🔧 Configuración de Almacenamiento
+
+### Permitir acceso público
+Las imágenes y PDFs se almacenan en `storage/app/public/` y son accesibles en:
+```
+http://localhost:8000/storage/productos/imagenes/nombre-imagen.jpg
+```
+
+### Validación de Archivos
+
+**Imágenes:**
+- Extensiones permitidas: jpg, jpeg, png, webp
+- Tamaño máximo: 2MB
+
+**PDFs:**
+- Extensiones permitidas: pdf
+- Tamaño máximo: 5MB
+
+## 📝 Archivos Creados/Modificados
+
+### Nuevos Componentes
+- ✅ Middleware: `app/Http/Middleware/CheckAdminRole.php`
+- ✅ Seeder: `database/seeders/AdminUserSeeder.php`
+- ✅ Migraciones para campos de imagen/PDF
+
+### Modificaciones
+- ✅ Routes: Validación de permisos en eliminaciones
+- ✅ Bootstrap: Registro del middleware
+- ✅ Package.json: Dependencias de DataTables
+- ✅ Vistas: DataTables implementados
+
+## 🚀 Diferencias con Primera Entrega
 
 | Característica | Primera | Segunda |
 |---|---|---|
-| DataTables | ❌ | ✅ |
-| Paginación Avanzada | ❌ | ✅ |
-| Subida de Imágenes | ❌ | ✅ |
-| Subida de PDFs | ❌ | ✅ |
-| Sistema de Roles | ❌ | ✅ |
-| Control de Permisos | ❌ | ✅ |
-| Storage Integrado | ❌ | ✅ |
+| **DataTables** | ❌ | ✅ |
+| **Paginación Avanzada** | ❌ | ✅ |
+| **Subida de Imágenes** | ❌ | ✅ |
+| **Subida de PDFs** | ❌ | ✅ |
+| **Sistema de Roles** | ❌ | ✅ |
+| **Control de Permisos** | ❌ | ✅ |
+| **Middleware de Seguridad** | ❌ | ✅ |
+| **Validación de Archivos** | ❌ | ✅ |
 
-## Consideraciones Importantes
+## ⚙️ Troubleshooting
 
-### Enlaces Simbólicos
-Después de la instalación, ejecuta:
+### Las imágenes no se muestran
 ```bash
 php artisan storage:link
 ```
 
-Esto crea un enlace en `public/storage` apuntando a `storage/app/public`.
-
-### Permisos de Carpetas
-Asegúrate de que las carpetas tengan permisos correctos:
+### Error de permisos en storage
 ```bash
 chmod -R 755 storage/
 chmod -R 755 bootstrap/cache/
 ```
 
-### Límites de Subida
-Las imágenes se validan por:
-- Extensión: jpg, jpeg, png, webp
-- Tamaño máximo: 2MB
-
-Los PDFs se validan por:
-- Extensión: pdf
-- Tamaño máximo: 5MB
-
-## Troubleshooting
-
-### Las imágenes no se muestran
-```
-Solución: Ejecuta php artisan storage:link
-```
-
-### Error de permisos en storage
-```
-Solución: chmod -R 755 storage/ bootstrap/cache/
-```
-
 ### Base de datos no conecta
-```
-Solución: Verificar credenciales en .env y mysql running
-```
+- Verificar que MySQL está ejecutándose
+- Comprobar credenciales en `.env`
+- Ejecutar migrations: `php artisan migrate`
 
-## Criterios de Evaluación Cumplidos
+### DataTables no carga
+- Verificar que npm packages están instalados: `npm install`
+- Compilar assets: `npm run build`
+- Limpiar caché: `php artisan cache:clear`
 
-✅ DataTables integrados en todos los módulos  
-✅ Paginación avanzada  
+## 📋 Requisitos de Evaluación Cumplidos
+
+✅ DataTables en todos los módulos  
+✅ Paginación avanzada implementada  
 ✅ Subida de imágenes funcional  
-✅ Subida de PDFs funcional  
-✅ Sistema de roles implementado  
+✅ Subida de archivos PDFs  
+✅ Sistema de roles (Admin, Usuario)  
 ✅ Control de permisos en vistas  
 ✅ Validación de formularios  
-✅ Almacenamiento de archivos seguro  
-✅ Código funcional sin errores graves  
+✅ Almacenamiento seguro de archivos  
+✅ Middleware de protección  
+✅ Código funcional y testeado  
 
-## Licencia
+## 📚 Comparativa de Ramas
+
+```
+laravel1 (repositorio)
+├── main → Primera Entrega (CRUD básicos)
+└── Segunda → Segunda Entrega (Con todas las mejoras)
+```
+
+### Cambiar entre ramas
+```bash
+# Para Primera Entrega (básica)
+git checkout main
+
+# Para Segunda Entrega (mejorada)
+git checkout Segunda
+```
+
+## 🎯 Próximas Mejoras Sugeridas
+
+- Implementar búsqueda avanzada con filtros
+- Agregar reportes en PDF
+- Sistema de notificaciones
+- Auditoría de cambios
+- Historial de operaciones
+- Más granularidad en permisos
+
+## 📄 Licencia
 MIT
 
-## Autor
-Desarrollo de CRM - Proyecto Educativo Segunda Entrega
+## 👨‍💻 Autor
+Hugo Sánchez López - Proyecto Educativo CRM - Segunda Entrega
