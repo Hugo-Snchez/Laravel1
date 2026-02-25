@@ -6,6 +6,11 @@
         "build": "vite build",
         "dev": "vite"
     },
+    "dependencies": {
+        "datatables.net": "^1.13.0",
+        "datatables.net-dt": "^1.13.0",
+        "datatables.net-bs5": "^1.13.0"
+    },
     "devDependencies": {
         "@popperjs/core": "^2.11.6",
         "@tailwindcss/vite": "^4.0.0",
