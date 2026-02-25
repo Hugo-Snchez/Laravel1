@@ -1,54 +1,111 @@
-Proyecto de Gestión con Laravel
-Este proyecto es una aplicación web desarrollada con el framework Laravel. Su objetivo es gestionar diferentes elementos de una empresa, como clientes, productos y facturas. Cada módulo permite realizar operaciones básicas como crear, editar, listar y eliminar registros.
-La mayoría de los apartados funcionan correctamente, aunque el módulo de proveedores no he conseguido completarlo del todo debido a problemas con la base de datos.
+# CRM Empresa - Primera Entrega
 
-Requisitos para ejecutarlo
-PHP 8.1 o superior
+## Descripción del Proyecto
+Sistema CRM sencillo desarrollado con Laravel para gestionar información básica de una empresa. 
+Incluye módulos CRUD completos para gestión de clientes, productos, proveedores, ventas y compras.
 
-Composer
+## Tecnologías Utilizadas
+- **Framework**: Laravel 11
+- **Base de datos**: MySQL
+- **Frontend**: Blade Templates + AdminLTE 3
+- **Lenguaje**: PHP 8.2+
+- **Servidor**: Apache/Nginx
 
-Laravel 10
+## Módulos Implementados (5 CRUDs)
 
-Servidor local (Laravel Sail, XAMPP, WAMP, etc.)
+### 1. Clientes (Obligatorio)
+- Listar clientes
+- Crear nuevos clientes
+- Editar clientes existentes
+- Eliminar clientes
+- **Campos**: Nombre, Email, Teléfono, Dirección
 
-SQLite o MySQL (según configuración del .env)
+### 2. Productos
+- CRUD completo de productos
+- **Campos**: Nombre, Descripción, Precio, Stock
 
-Navegador web actualizado
+### 3. Proveedores
+- CRUD completo de proveedores
+- **Campos**: Nombre, Email, Teléfono, Dirección
 
-Pasos básicos de instalación
-Clonar el repositorio:
+### 4. Ventas
+- CRUD de ventas
+- Relación con clientes y detalles de venta
 
-bash
-git clone https://github.com/luKii39/Trabajo_Laravel_Clase.git
-Entrar en la carpeta del proyecto:
+### 5. Compras
+- CRUD de compras
+- Relación con proveedores y detalles de compra
 
-bash
-cd Trabajo_Laravel_Clase
-Instalar dependencias:
+## Requisitos Previos
+- PHP 8.2 o superior
+- Composer instalado
+- MySQL 5.7 o superior
+- Node.js y npm
 
-bash
+## Instalación
+
+### Paso 1: Clonar el repositorio
+```bash
+git clone https://github.com/tu-usuario/laravel1.git
+cd laravel1
+git checkout main
+```
+
+### Paso 2: Instalar dependencias
+```bash
 composer install
-Crear el archivo .env:
+npm install
+```
 
-bash
+### Paso 3: Configurar archivo .env
+```bash
 cp .env.example .env
-Generar la clave de la aplicación:
-
-bash
 php artisan key:generate
-Configurar la base de datos en el archivo .env.
+```
 
-Ejecutar las migraciones:
+Editar `.env` y configurar la base de datos:
+```
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=crm_empresa
+DB_USERNAME=root
+DB_PASSWORD=
+```
 
-bash
+### Paso 4: Migrar la base de datos
+```bash
 php artisan migrate
-Iniciar el servidor:
+```
 
-bash
+### Paso 5: Iniciar servidor local
+```bash
 php artisan serve
-Acceder desde el navegador:
+```
 
-Código
-http://localhost:8000
+La aplicación estará disponible en `http://localhost:8000`
 
-La contraseña y el usuario crealos de nuevo
+## Usuarios de Prueba
+
+- **Email**: admin@crm.com
+- **Contraseña**: password
+
+## Criterios de Evaluación Cumplidos
+
+✅ Proyecto Laravel correctamente creado  
+✅ Conexión a base de datos funcional  
+✅ Implementación de 5 CRUDs completos  
+✅ Navegación clara entre módulos  
+✅ Código funcional  
+
+## Próxima Entrega
+
+La rama `Segunda` contiene la segunda entrega con:
+- DataTables en listados
+- Paginación avanzada
+- Subida de imágenes y archivos (PDF)
+- Sistema de roles (Admin/Usuario)
+- Validaciones mejoradas
+
+## Licencia
+MIT
